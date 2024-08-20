@@ -54,3 +54,48 @@ A new column called `route` was created to consolidate the data from `cog` and `
 
 ```python
 df['route'] = np.where(df['cog'].isnull(), df['heading'], df['cog'])
+```
+
+This resulted in a more complete dataset where missing directional data was minimized by leveraging available information.
+
+### 2. Data Type Consistency
+Ensuring consistent data types across columns was crucial for accurate analysis. The dataset was reviewed, and any discrepancies in data types were corrected:
+
+**Numerical Columns:**
+Columns such as `width`, `length`, `draught`, `sog`, `cog`, and `heading` were checked and converted to appropriate numerical types (e.g., `float`). This conversion ensured that these columns were ready for any mathematical operations, such as aggregations and comparisons.
+
+```python
+df['width'] = df['width'].astype(float)
+df['length'] = df['length'].astype(float)
+df['draught'] = df['draught'].astype(float)
+df['sog'] = df['sog'].astype(float)
+df['cog'] = df['cog'].astype(float)
+df['heading'] = df['heading'].astype(float)
+```
+By converting these columns to `float`, we ensured that the data was consistent and ready for further processing.
+
+### 3. Data Validation and Testing
+After handling missing values and ensuring consistent data types, the dataset was validated to confirm the quality of the data:
+
+**Check for Remaining Null Values:**
+After the initial cleaning steps, the dataset was checked for any remaining null values to ensure completeness. This involved running checks across all columns to ensure that no critical data was missing.
+
+```python
+null_values = df.isnull().sum()
+print(null_values)
+```
+*Check for Consistency in Numerical Columns:**
+Summary statistics (like mean, min, max) were calculated for key numerical columns to ensure the data made sense and there were no outliers or incorrect values after cleaning.
+
+```python
+summary_stats = df.describe()
+print(summary_stats)
+```
+These checks ensured that the cleaned dataset was accurate and ready for import into Power BI.
+
+### 4. Exporting the Cleaned Data
+Finally, the cleaned dataset was exported as a CSV file to be used in Power BI for further analysis and visualization. This step ensured that all transformations and cleaning operations performed in Python were preserved and could be easily used in the next stage of the project.
+
+```python
+df.to_csv('path_to_cleaned_ais_data.csv', index=False)
+```
