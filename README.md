@@ -43,59 +43,179 @@ The objective of this project is to analyze vessel operations and navigational e
 - **Power BI:** Used for data visualization and creating interactive dashboards.
 - **GitHub:** Used for version control and hosting the project documentation.
 
-## Data Cleaning and Preparation in Python
-**Overview:** The dataset initially had issues such as missing values, inconsistent data types, and outliers. The data cleaning process involved handling these issues to ensure the dataset was suitable for analysis.
+Based on the code you provided, here's a detailed overview of the steps you took to clean and prepare the dataset in Python:
 
-### 1. Handling Missing Values in Dynamic Columns
-The dataset included several dynamic columns, such as `cog` (Course Over Ground) and `heading`, which had missing values due to various reasons like data transmission issues. To ensure these gaps did not affect the subsequent analysis, the following steps were taken:
+---
 
-**Combining `cog` and `heading` to Fill Missing Values:**
-A new column called `route` was created to consolidate the data from `cog` and `heading`. The logic implemented was to use the `cog` value if it was available; otherwise, the `heading` value was used. This step ensured that every vessel had a route direction, either derived from `cog` or `heading`.
+### Data Cleaning and Preparation in Python
 
-```python
-df['route'] = np.where(df['cog'].isnull(), df['heading'], df['cog'])
-```
+**Overview:**  
 
-This resulted in a more complete dataset where missing directional data was minimized by leveraging available information.
+The dataset was initially explored and cleaned to address missing values, ensure data type consistency, and remove potential biases. The cleaning process was systematic, ensuring that the data was suitable for further analysis and visualization.
 
-### 2. Data Type Consistency
-Ensuring consistent data types across columns was crucial for accurate analysis. The dataset was reviewed, and any discrepancies in data types were corrected:
+#### 1. Initial Data Exploration
 
-**Numerical Columns:**
-Columns such as `width`, `length`, `draught`, `sog`, `cog`, and `heading` were checked and converted to appropriate numerical types (e.g., `float`). This conversion ensured that these columns were ready for any mathematical operations, such as aggregations and comparisons.
+Before diving into cleaning, the dataset was explored to understand its structure and identify any immediate issues:
 
-```python
-df['width'] = df['width'].astype(float)
-df['length'] = df['length'].astype(float)
-df['draught'] = df['draught'].astype(float)
-df['sog'] = df['sog'].astype(float)
-df['cog'] = df['cog'].astype(float)
-df['heading'] = df['heading'].astype(float)
-```
-By converting these columns to `float`, we ensured that the data was consistent and ready for further processing.
+- **Previewing the Data:**
 
-### 3. Data Validation and Testing
-After handling missing values and ensuring consistent data types, the dataset was validated to confirm the quality of the data:
+  The first few rows of the dataset were displayed using `print(df.head())` to get an initial look at the data and understand the types of information it contained.
 
-**Check for Remaining Null Values:**
-After the initial cleaning steps, the dataset was checked for any remaining null values to ensure completeness. This involved running checks across all columns to ensure that no critical data was missing.
+- **Understanding the Columns:**
 
-```python
-null_values = df.isnull().sum()
-print(null_values)
-```
-*Check for Consistency in Numerical Columns:**
-Summary statistics (like mean, min, max) were calculated for key numerical columns to ensure the data made sense and there were no outliers or incorrect values after cleaning.
+  The column names were printed using `print(df.columns)` to verify the fields available for analysis.
 
-```python
-summary_stats = df.describe()
-print(summary_stats)
-```
-These checks ensured that the cleaned dataset was accurate and ready for import into Power BI.
+- **Dataset Dimensions:**
 
-### 4. Exporting the Cleaned Data
-Finally, the cleaned dataset was exported as a CSV file to be used in Power BI for further analysis and visualization. This step ensured that all transformations and cleaning operations performed in Python were preserved and could be easily used in the next stage of the project.
+  The number of rows and columns in the dataset was determined using `print(f"Dataset contains {df.shape[0]} rows and {df.shape[1]} columns.")`, which provided a quick overview of the dataset's size.
 
-```python
-df.to_csv('path_to_cleaned_ais_data.csv', index=False)
-```
+- **Data Types and Missing Values:**
+
+  The `df.info()` function was used to check the data types of each column and identify any missing values. This step helped in understanding the overall structure and completeness of the dataset.
+
+- **Missing Values Summary:**
+
+  A detailed summary of missing values in each column was generated using `df.isnull().sum()`. This provided a clear picture of where the data might be incomplete.
+
+- **Statistical Summary:**
+
+  The `df.describe()` function was used to generate summary statistics (e.g., mean, standard deviation) for numerical columns, helping to identify any unusual values or potential outliers.
+
+- **Visualizing Missing Data:**
+
+  A missing data matrix was plotted using `msno.matrix(df)` to visually assess the extent of missing data across the dataset.
+
+#### 2. Data Backup and Initial Cleaning
+
+- **Creating Backups:**
+
+  Two backups of the original dataset were created (`df_backup` and `df2`) to ensure that the original data remained intact and to allow for comparison after cleaning.
+
+- **Handling Missing Values in Critical Columns:**
+
+  Rows with missing values in critical columns (`sog`, `cog`, `width`, `length`, `draught`, `heading`) were removed using `cleaned_data = df2.dropna(subset=['sog', 'cog', 'width', 'length', 'draught','heading'])`. This step ensured that only complete records were retained for analysis, which is crucial for maintaining data integrity.
+
+#### 3. Ensuring Data Type Consistency
+
+- **Converting Numerical Columns:**
+
+  All key numerical columns (`sog`, `cog`, `heading`, `width`, `length`, `draught`) were explicitly converted to `float` type using a loop. This ensured that all these fields were in the correct format for any mathematical operations that might be required later.
+
+  ```python
+
+  numerical_columns = ['sog', 'cog', 'heading', 'width', 'length', 'draught']
+
+  for col in numerical_columns:
+
+      cleaned_data[col] = cleaned_data[col].astype(float)
+
+  ```
+
+#### 4. Checking for Data Bias Post-Cleaning
+
+- **Distribution Comparison:**
+
+  To ensure that the data cleaning process did not introduce bias, especially in terms of removing certain types of ships, the distribution of the `shiptype` column before and after cleaning was compared. This comparison was done using value counts normalized to percentages.
+
+  ```python
+
+  initial_distribution = df2['shiptype'].value_counts(normalize=True)
+
+  cleaned_distribution = cleaned_data['shiptype'].value_counts(normalize=True)
+
+  distribution_comparison = pd.DataFrame({
+
+      'Initial Distribution': initial_distribution,
+
+      'Cleaned Distribution': cleaned_distribution
+
+  }).fillna(0)
+
+  ```
+
+  This step was crucial to validate that the cleaning process did not disproportionately remove any specific ship types, which could have skewed the analysis.
+
+- **Assessing Rows Removed:**
+
+  The number of rows removed during the cleaning process was calculated, and the percentage of data removed was reported. This provided transparency about the impact of the cleaning process.
+
+  ```python
+
+  rows_removed = df2.shape[0] - cleaned_data.shape[0]
+
+  percentage_removed = (rows_removed / df2.shape[0]) * 100
+
+  ```
+
+#### 5. Visualization of Data Distributions
+
+- **Visualizing Key Distributions:**
+
+  The distributions of `width`, `length`, and `draught` were plotted using histograms to visualize the data's spread and identify any remaining outliers or unusual patterns.
+
+  ```python
+
+  plt.figure(figsize=(15, 5))
+
+  plt.subplot(1, 3, 1)
+
+  sns.histplot(cleaned_data['width'], kde=True)
+
+  plt.title('Distribution of Width')
+
+  plt.subplot(1, 3, 2)
+
+  sns.histplot(cleaned_data['length'], kde=True)
+
+  plt.title('Distribution of Length')
+
+  plt.subplot(1, 3, 3)
+
+  sns.histplot(cleaned_data['draught'], kde=True)
+
+  plt.title('Distribution of Draught')
+
+  plt.tight_layout()
+
+  plt.show()
+
+  ```
+
+  This visualization step helped confirm that the data was well-behaved and that the cleaning process had successfully prepared the dataset for analysis.
+
+#### 6. Final Data Export
+
+- **Saving the Cleaned Data:**
+
+  After all cleaning steps were completed, the cleaned dataset was exported to a new CSV file for use in Power BI.
+
+  ```python
+
+  cleaned_file_path = 'path_to_cleaned_ais_data.csv'
+
+  cleaned_data.to_csv(cleaned_file_path, index=False)
+
+  ```
+
+  This step ensured that the cleaned and validated data was preserved and ready for further analysis in Power BI.
+
+- **Final Checks and Reporting:**
+
+  A final check of the cleaned data was performed to ensure no remaining null values, and the cleaning process's impact on data distribution was reported.
+
+  ```python
+
+  print(f"Total rows removed: {rows_removed} ({percentage_removed:.2f}%)")
+
+  print("Bias check - Ship type distribution before and after cleaning:")
+
+  print(distribution_comparison)
+
+  print(f"Cleaned data saved to {cleaned_file_path}")
+
+  ```
+
+---
+
+
+
