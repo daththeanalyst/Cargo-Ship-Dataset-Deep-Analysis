@@ -1,3 +1,3 @@
 # Python to Power BI
-![Photo for readme](Assets/Photo for readme.png)
+![dataset-python-powerbi](Assets/Photo for readme.png)
 
