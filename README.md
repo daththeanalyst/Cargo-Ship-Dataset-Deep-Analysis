@@ -407,9 +407,71 @@ Using these DAX measures and calculated columns, a variety of visualizations wer
 The visualizations were combined into interactive dashboards, allowing users to drill down into specific data points and filter by different dimensions such as ship type, vessel size, or operational status. These dashboards provided an intuitive interface for exploring the AIS data and deriving actionable insights.]
 
 ![image1](https://github.com/user-attachments/assets/6e199ff6-6fa3-4816-a049-9818ea5efc15)
+
+### 5Power BI Dashboard Overview
+
+This Power BI dashboard provides a comprehensive overview of vessel operations based on AIS (Automatic Identification System) data. It is designed to analyze various metrics that influence navigational efficiency and vessel performance.
+
+- **Average Speed by Ship Type**: 
+  The line chart on the top left illustrates the average speed of different ship types, providing insights into which types of vessels tend to move faster or slower. High-Speed Crafts (HSC) and law enforcement ships have the highest average speeds, while port tenders and towing vessels are generally slower.
+
+- **Weighted Average Draught by Ship Type**: 
+  The bar chart on the top right shows the weighted average draught for different ship types. This metric, which reflects how deeply a ship is submerged in water, can indicate the vessel's load. Military and towing ships have the highest draught, suggesting they carry heavier loads compared to other vessel types.
+
+- **Count of Ships per Type & Size**: 
+  The treemap at the bottom left categorizes ships by both type and size. It visually represents the distribution of various ship sizes within each ship type, highlighting that medium-sized cargo ships make up a significant portion of the fleet.
+
+- **Average Speed by Course Deviation**: 
+  The scatter plot at the bottom right examines the relationship between course deviation and average speed for different ship types. The size of each bubble represents the number of vessels in that category, allowing users to identify patterns such as the high deviation of certain ships like HSC and their corresponding speed.
+
+Overall, this dashboard enables a detailed analysis of how different types of vessels perform under various conditions, aiding in decision-making for maritime operations and navigational safety.
+
 ![image](https://github.com/user-attachments/assets/25209638-6d30-4bb3-9447-4496cd7038e4)
+
+### Power BI Dashboard Overview - Detailed Analytics
+
+This section of the Power BI dashboard provides a more detailed analysis of directional patterns and vessel dimensions, offering insights into how different ship types navigate and their physical characteristics.
+
+- **Directional Patterns by Ship Type**: 
+  The heatmap on the left side of the dashboard visualizes the directional patterns of various ship types. Each color-coded cell represents the percentage of ships that navigate in a specific direction (e.g., ENE, NNE, WNW) for each ship type. This helps identify common navigational routes and preferences for different vessel categories. For example, HSC (High-Speed Craft) shows a significant preference for the ENE direction, while law enforcement vessels have a more evenly distributed navigational pattern.
+
+- **Vessel Dimensions Table**: 
+  On the right side, a table displays key physical attributes of different ship types, including the average length, width, draught, and the Draft-to-Size Ratio. The "Average of Draught" column is highlighted, allowing for quick comparison of how deeply different vessels are submerged in water. For instance, tankers have a notably higher average draught, indicating they carry heavier loads compared to other vessel types.
+
+- **Ship Type Slider**: 
+  At the bottom right, a ship type slider allows users to filter the data displayed in the heatmap and table by specific ship types. This interactive feature enhances the dashboard's usability by enabling focused analysis on particular categories of interest, such as comparing cargo ships versus passenger ships.
+
+Overall, this detailed analytics dashboard provides a comprehensive view of how different ship types operate and navigate, which is essential for understanding the broader patterns in maritime operations and making informed decisions.
+
 ![image](https://github.com/user-attachments/assets/edf129f8-d414-4829-9622-f615a630955b)
 
+### Power BI Dashboard Overview - Cargo Ship Size Insights
+
+This section of the Power BI dashboard focuses on providing insights into cargo ship operations by analyzing vessel size categories. It presents key performance metrics and visual comparisons across different ship sizes.
+
+- **KPI Cards**:
+  The dashboard begins with a set of Key Performance Indicator (KPI) cards on the left that display crucial statistics:
+  - **Average Speed**: 11.75 knots
+  - **Average Length**: 133.56 meters
+  - **Average Width**: 21.15 meters
+  - **Average Draught**: 6.61 meters
+  - **Course Deviation**: 0.01 degrees
+  
+  These KPIs provide a quick overview of the overall performance and dimensions of the cargo ships in the dataset.
+
+- **Average Speed by Vessel Size Category and Ship Type**:
+  The bar chart on the top right shows the average speed of cargo ships categorized by vessel size (Large, Medium, Small) and ship type (e.g., Cargo, Dredging, Fishing). This allows for a comparative analysis of how different vessel sizes and types perform in terms of speed. For example, larger vessels like tankers tend to have lower average speeds compared to smaller, more agile vessels.
+
+- **Course Deviation by Vessel Size Category**:
+  The bar chart in the bottom center highlights the course deviation across different vessel size categories. It shows that smaller vessels tend to have slightly higher course deviations compared to larger ships, indicating potential challenges in maintaining a steady course.
+
+- **Vessel Operational Status: Normal vs. FIX**:
+  The stacked bar chart on the bottom right compares the count of vessels in "Normal" operational status versus those tagged as "FIX" (vessels with low speed and no route information). The chart is further broken down by vessel size category, revealing that smaller vessels are more likely to be in the "FIX" status compared to larger vessels.
+
+- **Vessel Size Filter**:
+  On the left, a filter allows users to select and focus on specific vessel size categories (Large, Medium, Small). This interactive feature enables detailed analysis based on the user's interest, whether it's understanding the performance of larger cargo ships or examining smaller vessels.
+
+Overall, this dashboard provides a detailed breakdown of cargo ship operations, emphasizing the impact of vessel size on speed, course deviation, and operational status. It serves as a valuable tool for identifying patterns and making informed decisions regarding cargo ship management.
 
 ### Summary
 
