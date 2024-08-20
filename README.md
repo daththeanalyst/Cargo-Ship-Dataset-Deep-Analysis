@@ -404,10 +404,12 @@ Using these DAX measures and calculated columns, a variety of visualizations wer
 
 #### 4\. Interactive Dashboards
 
-The visualizations were combined into interactive dashboards, allowing users to drill down into specific data points and filter by different dimensions such as ship type, vessel size, or operational status. These dashboards provided an intuitive interface for exploring the AIS data and deriving actionable insights.
-![Screenshot 1](Assets/screen 1.png)
-![Screenshot 2](Assets/screen 2.png)
-![Screenshot 3](Assets/screen 3.png)
+The visualizations were combined into interactive dashboards, allowing users to drill down into specific data points and filter by different dimensions such as ship type, vessel size, or operational status. These dashboards provided an intuitive interface for exploring the AIS data and deriving actionable insights.]
+
+![image1](https://github.com/user-attachments/assets/6e199ff6-6fa3-4816-a049-9818ea5efc15)
+![image](https://github.com/user-attachments/assets/25209638-6d30-4bb3-9447-4496cd7038e4)
+![image](https://github.com/user-attachments/assets/edf129f8-d414-4829-9622-f615a630955b)
+
 
 ### Summary
 
