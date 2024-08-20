@@ -231,11 +231,9 @@ Here are the key DAX measures and calculated columns used in this analysis:
 
 This measure calculates the distinct count of vessels in the dataset based on their mmsi (Maritime Mobile Service Identity), which uniquely identifies each vessel.
 
-DAX
-
-Copy code
-
+```DAX
 Total Vessels = DISTINCTCOUNT(path_to_cleaned_ais_data[mmsi])
+```
 
 -   Purpose: This measure was used to count the total number of unique vessels in the dataset, providing a high-level overview of the dataset's scope.
 
@@ -243,11 +241,9 @@ Total Vessels = DISTINCTCOUNT(path_to_cleaned_ais_data[mmsi])
 
 This measure calculates the average speed over ground (sog) of all vessels in the dataset.
 
-DAX
-
-Copy code
-
+```DAX
 Average Speed = AVERAGE(path_to_cleaned_ais_data[sog])
+```
 
 -   Purpose: The average speed measure was critical for analyzing the overall performance and efficiency of different types of vessels. It provided insights into how fast vessels typically traveled.
 
@@ -255,11 +251,9 @@ Average Speed = AVERAGE(path_to_cleaned_ais_data[sog])
 
 This measure calculates the average draught of vessels, which represents the vertical distance between the waterline and the bottom of the hull (keel).
 
-DAX
-
-Copy code
-
+```DAX
 Average Draught = AVERAGE(path_to_cleaned_ais_data[draught])
+```
 
 -   Purpose: Understanding the average draught helps in assessing how heavily loaded vessels are, which can influence their navigational efficiency and safety.
 
@@ -267,11 +261,9 @@ Average Draught = AVERAGE(path_to_cleaned_ais_data[draught])
 
 This measure calculates the ratio of draught to the vessel's length, providing an indication of how well the vessel's size corresponds to its draught.
 
-DAX
-
-Copy code
-
+```DAX
 Draft-to-Size Ratio = DIVIDE(AVERAGE(path_to_cleaned_ais_data[draught]), AVERAGE(path_to_cleaned_ais_data[length]))
+```
 
 -   Purpose: The Draft-to-Size Ratio is useful for evaluating whether vessels are optimally loaded relative to their size, which can impact fuel efficiency and maneuverability.
 
@@ -279,11 +271,9 @@ Draft-to-Size Ratio = DIVIDE(AVERAGE(path_to_cleaned_ais_data[draught]), AVERAGE
 
 This measure calculates the percentage of each ship type within the dataset, allowing for an understanding of the distribution of different vessel types.
 
-DAX
-
-Copy code
-
+```DAX
 Ship Type Percentage = DIVIDE(COUNTROWS(path_to_cleaned_ais_data), CALCULATE(COUNTROWS(path_to_cleaned_ais_data), ALL(path_to_cleaned_ais_data[shiptype]))) * 100
+```
 
 -   Purpose: This measure was used to visualize the proportion of different ship types, which is critical for analyzing fleet composition.
 
