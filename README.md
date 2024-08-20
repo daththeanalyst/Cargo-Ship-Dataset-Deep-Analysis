@@ -101,15 +101,14 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   All key numerical columns (`sog`, `cog`, `heading`, `width`, `length`, `draught`) were explicitly converted to `float` type using a loop. This ensured that all these fields were in the correct format for any mathematical operations that might be required later.
 
-  ```python
+```python
 
   numerical_columns = ['sog', 'cog', 'heading', 'width', 'length', 'draught']
 
   for col in numerical_columns:
 
       cleaned_data[col] = cleaned_data[col].astype(float)
-
-  ```
+  ```
 
 #### 4. Checking for Data Bias Post-Cleaning
 
@@ -117,7 +116,7 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   To ensure that the data cleaning process did not introduce bias, especially in terms of removing certain types of ships, the distribution of the `shiptype` column before and after cleaning was compared. This comparison was done using value counts normalized to percentages.
 
-  ```python
+```python
 
   initial_distribution = df2['shiptype'].value_counts(normalize=True)
 
@@ -131,7 +130,7 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   }).fillna(0)
 
-  ```
+```
 
   This step was crucial to validate that the cleaning process did not disproportionately remove any specific ship types, which could have skewed the analysis.
 
@@ -139,13 +138,13 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   The number of rows removed during the cleaning process was calculated, and the percentage of data removed was reported. This provided transparency about the impact of the cleaning process.
 
-  ```python
+```python
 
   rows_removed = df2.shape[0] - cleaned_data.shape[0]
 
   percentage_removed = (rows_removed / df2.shape[0]) * 100
 
-  ```
+```
 
 #### 5. Visualization of Data Distributions
 
@@ -153,7 +152,7 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   The distributions of `width`, `length`, and `draught` were plotted using histograms to visualize the data's spread and identify any remaining outliers or unusual patterns.
 
-  ```python
+```python
 
   plt.figure(figsize=(15, 5))
 
@@ -179,7 +178,7 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   plt.show()
 
-  ```
+```
 
   This visualization step helped confirm that the data was well-behaved and that the cleaning process had successfully prepared the dataset for analysis.
 
@@ -189,13 +188,13 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   After all cleaning steps were completed, the cleaned dataset was exported to a new CSV file for use in Power BI.
 
-  ```python
+```python
 
   cleaned_file_path = 'path_to_cleaned_ais_data.csv'
 
   cleaned_data.to_csv(cleaned_file_path, index=False)
 
-  ```
+```
 
   This step ensured that the cleaned and validated data was preserved and ready for further analysis in Power BI.
 
@@ -203,7 +202,7 @@ Before diving into cleaning, the dataset was explored to understand its structur
 
   A final check of the cleaned data was performed to ensure no remaining null values, and the cleaning process's impact on data distribution was reported.
 
-  ```python
+```python
 
   print(f"Total rows removed: {rows_removed} ({percentage_removed:.2f}%)")
 
@@ -212,10 +211,9 @@ Before diving into cleaning, the dataset was explored to understand its structur
   print(distribution_comparison)
 
   print(f"Cleaned data saved to {cleaned_file_path}")
+```
 
-  ```
 
----
 
 
 
