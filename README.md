@@ -231,7 +231,7 @@ Here are the key DAX measures and calculated columns used in this analysis:
 
 This measure calculates the distinct count of vessels in the dataset based on their mmsi (Maritime Mobile Service Identity), which uniquely identifies each vessel.
 
-```DAX
+```dax
 Total Vessels = DISTINCTCOUNT(path_to_cleaned_ais_data[mmsi])
 ```
 
@@ -241,7 +241,7 @@ Total Vessels = DISTINCTCOUNT(path_to_cleaned_ais_data[mmsi])
 
 This measure calculates the average speed over ground (sog) of all vessels in the dataset.
 
-```DAX
+```dax
 Average Speed = AVERAGE(path_to_cleaned_ais_data[sog])
 ```
 
@@ -251,7 +251,7 @@ Average Speed = AVERAGE(path_to_cleaned_ais_data[sog])
 
 This measure calculates the average draught of vessels, which represents the vertical distance between the waterline and the bottom of the hull (keel).
 
-```DAX
+```dax
 Average Draught = AVERAGE(path_to_cleaned_ais_data[draught])
 ```
 
@@ -261,7 +261,7 @@ Average Draught = AVERAGE(path_to_cleaned_ais_data[draught])
 
 This measure calculates the ratio of draught to the vessel's length, providing an indication of how well the vessel's size corresponds to its draught.
 
-```DAX
+```dax
 Draft-to-Size Ratio = DIVIDE(AVERAGE(path_to_cleaned_ais_data[draught]), AVERAGE(path_to_cleaned_ais_data[length]))
 ```
 
@@ -271,7 +271,7 @@ Draft-to-Size Ratio = DIVIDE(AVERAGE(path_to_cleaned_ais_data[draught]), AVERAGE
 
 This measure calculates the percentage of each ship type within the dataset, allowing for an understanding of the distribution of different vessel types.
 
-```DAX
+```dax
 Ship Type Percentage = DIVIDE(COUNTROWS(path_to_cleaned_ais_data), CALCULATE(COUNTROWS(path_to_cleaned_ais_data), ALL(path_to_cleaned_ais_data[shiptype]))) * 100
 ```
 
@@ -281,14 +281,10 @@ Ship Type Percentage = DIVIDE(COUNTROWS(path_to_cleaned_ais_data), CALCULATE(COU
 
 This measure categorizes vessels into "Slow", "Moderate", and "Fast" speed categories based on their average speed.
 
-DAX
-
-Copy code
-
+```dax
 Speed Category = 
 
 SWITCH(
-
     TRUE(),
 
     AVERAGE(path_to_cleaned_ais_data[sog]) < 5, "Slow",
@@ -296,8 +292,8 @@ SWITCH(
     AVERAGE(path_to_cleaned_ais_data[sog]) < 15, "Moderate",
 
     "Fast"
-
 )
+```
 
 -   Purpose: Categorizing vessels by speed allows for a more granular analysis of vessel performance, highlighting differences in operational behavior among various types of ships.
 
@@ -305,10 +301,7 @@ SWITCH(
 
 This calculated column classifies vessels into "Small", "Medium", and "Large" categories based on their length.
 
-DAX
-
-Copy code
-
+```dax
 Vessel Size Category = 
 
 SWITCH(
@@ -320,8 +313,8 @@ SWITCH(
     path_to_cleaned_ais_data[length] < 150, "Medium",
 
     "Large"
-
 )
+```
 
 -   Purpose: The Vessel Size Category column enabled comparisons between different size classes of vessels, helping to identify patterns related to vessel size and performance.
 
@@ -329,11 +322,9 @@ SWITCH(
 
 This measure creates a combined string that categorizes vessels by both size and ship type.
 
-DAX
-
-Copy code
-
+```dax
 VesselSize_ShipType = [Vessel Size Category] & " - " & [shiptype]
+```
 
 -   Purpose: Combining vessel size and ship type into a single category allowed for more nuanced analyses, where both dimensions are considered simultaneously.
 
@@ -341,10 +332,7 @@ VesselSize_ShipType = [Vessel Size Category] & " - " & [shiptype]
 
 This measure categorizes vessels into directional waypoints based on their route data.
 
-DAX
-
-Copy code
-
+```dax
 waypoint = 
 
 SWITCH(
@@ -368,20 +356,17 @@ SWITCH(
     path_to_cleaned_ais_data[route] >= 315 && path_to_cleaned_ais_data[route] < 360, "NNW",
 
     BLANK()
-
 )
-
+```
 -   Purpose: The Waypoint measure provided directional context to the route data, allowing for the analysis of vessel movements in specific directions.
 
 ##### Weighted Average Draught (Measure)
 
 This measure calculates the weighted average draught, taking into account the length of each vessel.
 
-DAX
-
-Copy code
-
+```dax
 Weighted Average Draught = DIVIDE(SUMX(path_to_cleaned_ais_data, path_to_cleaned_ais_data[draught] * path_to_cleaned_ais_data[length]), SUM(path_to_cleaned_ais_data[length]))
+```
 
 -   Purpose: The weighted average draught helps in understanding how draught varies with vessel size, providing a more accurate picture of how different vessels are loaded.
 
@@ -389,10 +374,7 @@ Weighted Average Draught = DIVIDE(SUMX(path_to_cleaned_ais_data, path_to_cleaned
 
 This measure determines the route a vessel is following, defaulting to cog if available, and heading otherwise.
 
-DAX
-
-Copy code
-
+```dax
 route = 
 
 IF(
@@ -402,6 +384,7 @@ IF(
     path_to_cleaned_ais_data[heading], 
 
     path_to_cleaned_ais_data[cog])
+```
 
 -   Purpose: The Route measure ensures that each vessel has a route direction, even if one of the directional indicators (cog or heading) is missing.
 
