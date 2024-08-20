@@ -408,7 +408,7 @@ The visualizations were combined into interactive dashboards, allowing users to 
 
 ![image1](https://github.com/user-attachments/assets/6e199ff6-6fa3-4816-a049-9818ea5efc15)
 
-### 5Power BI Dashboard Overview
+### Power BI Dashboard Overview - Page 1
 
 This Power BI dashboard provides a comprehensive overview of vessel operations based on AIS (Automatic Identification System) data. It is designed to analyze various metrics that influence navigational efficiency and vessel performance.
 
@@ -428,7 +428,7 @@ Overall, this dashboard enables a detailed analysis of how different types of ve
 
 ![image](https://github.com/user-attachments/assets/25209638-6d30-4bb3-9447-4496cd7038e4)
 
-### Power BI Dashboard Overview - Detailed Analytics
+### Power BI Dashboard Overview - Page 2 - Detailed Analytics
 
 This section of the Power BI dashboard provides a more detailed analysis of directional patterns and vessel dimensions, offering insights into how different ship types navigate and their physical characteristics.
 
@@ -445,7 +445,7 @@ Overall, this detailed analytics dashboard provides a comprehensive view of how 
 
 ![image](https://github.com/user-attachments/assets/edf129f8-d414-4829-9622-f615a630955b)
 
-### Power BI Dashboard Overview - Cargo Ship Size Insights
+### Power BI Dashboard Overview - Page 3 - Cargo Ship Size Insights
 
 This section of the Power BI dashboard focuses on providing insights into cargo ship operations by analyzing vessel size categories. It presents key performance metrics and visual comparisons across different ship sizes.
 
